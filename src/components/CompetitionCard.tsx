@@ -5,15 +5,22 @@ import Link from "next/link";
 
 export default function CompetitionGrid() {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-      {COMPETITIONS.map((comp) => (
+    <div className="divide-y divide-line">
+      {COMPETITIONS.map((comp, i) => (
         <Link
           key={comp.code}
           href={`/scorers/${comp.code}`}
-          className="flex flex-col items-center gap-2 rounded-xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors cursor-pointer"
+          className="flex items-center gap-3 px-2 py-2.5 hover:bg-row-alt transition-colors no-underline group"
+          style={{ backgroundColor: i % 2 === 0 ? "#fff" : "#f4f7fa" }}
         >
-          <span className="text-4xl">{comp.flag}</span>
-          <span className="text-sm font-medium text-white/80 text-center">{comp.name}</span>
+          <span className="text-xl w-7 text-center">{comp.flag}</span>
+          <span className="text-data text-sm font-medium group-hover:text-brand transition-colors flex-1">
+            {comp.name}
+          </span>
+          <span className="text-dim text-xs font-mono">{comp.code}</span>
+          <span className="text-dim text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+            View stats →
+          </span>
         </Link>
       ))}
     </div>

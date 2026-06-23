@@ -19,9 +19,12 @@ async function apiFetch<T>(path: string): Promise<T> {
 
 export async function getTopScorers(
   competitionCode: string,
-  limit = 20
+  limit = 20,
+  season?: string
 ): Promise<ScorersResponse> {
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (season) params.set("season", season);
   return apiFetch<ScorersResponse>(
-    `/competitions/${competitionCode}/scorers?limit=${limit}`
+    `/competitions/${competitionCode}/scorers?${params}`
   );
 }
